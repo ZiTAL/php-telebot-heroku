@@ -2,9 +2,9 @@ php-telebot-heroku
 ==================
 PHP Telegram BOT for Heroku
 
-EDIT: ***config.json*** with ***Heroku APP ID*** and ***TELEGRAM API KEY***
+EDIT: **config.json** with **Heroku APP ID** and **TELEGRAM API KEY**
 
-EDIT: ***lib/telegram.php*** to write your commands
+EDIT: **lib/telegram.php** to write your commands
 
 Get Telegram API Key: https://core.telegram.org/bots#botfather
 
@@ -39,7 +39,7 @@ heroku login
 heroku create
 git init
 ```
-Edit ***config.json*** with ***HEROKU APP ID*** and ***TELEGRAM API KEY***
+Edit **config.json** with **HEROKU APP ID** and **TELEGRAM API KEY**
 Upload changes to Heroku and Deploy the application:
 ```
 git add .
