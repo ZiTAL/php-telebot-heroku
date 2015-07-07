@@ -30,8 +30,8 @@ class curl
 
 		if($method==='GET')
 		{
-			$url .= "?".$params;
 			$params = http_build_query($params);
+			$url .= "?".$params;
 		}
 		elseif($method==='POST')
 		{
