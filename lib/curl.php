@@ -28,7 +28,7 @@ class curl
 		$opts[CURLOPT_RETURNTRANSFER] = 1;
 		//$opts[CURLOPT_FRESH_CONNECT] = true;
 
-		if($method==='GET')
+		if($method==='GET' && count($params)>0)
 		{
 			$params = http_build_query($params);
 			$url .= "?".$params;
