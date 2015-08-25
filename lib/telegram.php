@@ -55,7 +55,7 @@ Txurrerue: 946882073";
 
 			case '/golazo':
 			{
-				$filename = PATH."/tmp/senor.jpg";
+				$filename = PATH."/images/senor.jpg";
 
 				if(class_exists('CURLFile'))
 					$cfile = new CURLFile($filename);
