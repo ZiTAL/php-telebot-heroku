@@ -10,6 +10,8 @@ class imgur
 
 	public function __construct($tag, $chat_id)
 	{
+		$chat_id = preg_replace("/^\-/", "n", $chat_id);
+
 		$this->url = preg_replace("/#tag#/", $tag, $this->url);
 		$this->folder = PATH.preg_replace("/#tag#/", $tag, $this->folder);
 
@@ -42,7 +44,7 @@ class imgur
 
 			$multimedias = $this->getMultimedias($links);
 
-			$file = $this->getFile($multimedias);
+			$file = $this->getFile($multimedias, true);
 			if($file!==false)
 				return $file;
 
@@ -135,13 +137,16 @@ class imgur
 		return $images;
 	}
 
-	private function getFile($multimedias)
+	private function getFile($multimedias, $shuffle = false)
 	{
+		if($shuffle)
+			shuffle($multimedias);
+
 		foreach($multimedias as $image)
 		{
 			$basename = basename($image);
 			$filename = $this->folder.$basename;
-			if(!is_file($filename))
+			if(!is_file(realpath($filename)))
 			{
 				$content = $this->curl_obj->request($image);
 				file_put_contents($filename, $content);

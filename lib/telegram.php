@@ -52,7 +52,7 @@ Txurrerue: 946882073";
 				$this->request('sendMessage', $params);
 				break;
 			}
-
+/*
 			case '/golazo':
 			{
 				$filename = PATH."/tmp/senor.jpg";
@@ -73,6 +73,7 @@ Txurrerue: 946882073";
 
 				break;
 			}
+*/
 			case '/estropadak':
 			{
 				$response = "Málaga              2015/06/28 12:00
@@ -163,10 +164,28 @@ Portugalete         2015/09/20 12:30";
 
                                 $this->request($method, $params);
 
+                                $params = array
+                                (
+                                        'chat_id' => $chat_id,
+                                        'text' => "debug: ".$filename,
+                                        'disable_web_page_preview' => null,
+                                        'reply_to_message_id' => $reply_to_message_id
+                                );
+                                $this->request('sendMessage', $params);
+
 				file_put_contents($filename, '');
                                 break;
 			}
 
+			case '/getInfo':
+                                $params = array
+                                (
+                                        'chat_id' => $chat_id,
+                                        'text' => print_r($item, true),
+                                        'disable_web_page_preview' => null,
+                                        'reply_to_message_id' => $reply_to_message_id
+                                );
+                                $this->request('sendMessage', $params);
 			default:
 				break;
 		}
