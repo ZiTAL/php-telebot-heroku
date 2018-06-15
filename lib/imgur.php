@@ -1,5 +1,5 @@
 <?php
-//require_once('curl.php');
+require_once('curl.php');
 
 class imgur
 {
@@ -44,10 +44,9 @@ class imgur
 
 			$multimedias = $this->getMultimedias($links);
 
-			$file = $this->getFile($multimedias);
+			$file = $this->getFile($multimedias, true);
 			if($file!==false)
 				return $file;
-
 		}
 		while($found===false);
 	}
@@ -91,12 +90,13 @@ class imgur
 	        $xpath = new DOMXPath($dom);
 
 	        $links = array();
-	        $as = $xpath->query("//a");
+	        $as = $xpath->query("//a[@class=\"image-list-link\"]");
 	        foreach($as as $a)
 	        {
         	        $href = $a->getAttribute('href');
-                	if(preg_match("/^\/r/", $href))
-                        	$links[] = "https://imgur.com".$href;
+			$href = preg_replace("/^\/\//", '', $href);
+			$href = "https://imgur.com{$href}";
+                       	$links[] = $href;
 	        }
 		return $links;
 	}
@@ -106,6 +106,8 @@ class imgur
 		$images = array();
 		foreach($links as $link)
 		{
+			$image = '';
+
 			$r = $this->curl_obj->request($link);
 
 			$dom = new DOMDocument();
@@ -113,23 +115,11 @@ class imgur
 
 			$xpath = new DOMXPath($dom);
 
-			$imgs = $xpath->query("//img");
-
-			$image = '';
-			foreach($imgs as $img)
+			$imgs = $xpath->query("//link[@rel=\"image_src\"]");
+			if($imgs->length>0)
 			{
-				$src = $img->getAttribute('src');
-				if(preg_match("/^\/\//", $src))
-				{
-					$image = "https:".$src;
-					break;
-				}
-				elseif(preg_match("/data\:image\/gif\;base64\,/", $src))
-				{
-					preg_match("/\/[^\/]+$/", $link, $m);
-					$image = "https://i.imgur.com".$m[0].".mp4";
-					break;
-				}
+				$image = $imgs->item(0);
+				$image = $image->getAttribute('href');
 			}
 			if($image!=='')
 				$images[] = $image;
