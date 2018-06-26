@@ -234,6 +234,51 @@ Ligie 38: Athletic Club - Sevilla 		2016/05/15 23:59";
 				file_put_contents($filename, '');
                                 break;
 			}
+			case '/andobuek':
+			{
+				include('imgur.php');
+
+				//$imgur = new imgur('spaceporn', $chat_id);
+				$imgur = new imgur('malemodels', $chat_id);
+				$filename = $imgur->getResource();
+
+                                if(class_exists('CURLFile'))
+                                        $cfile = new CURLFile($filename);
+                                else
+                                        $cfile = "@".$filename;
+
+                                $params = array
+                                (
+                                        'chat_id' => $chat_id,
+                                        'photo' => $cfile,
+                                        'reply_to_message_id' => $reply_to_message_id,
+                                        'reply_markup' => null
+                                );
+
+				$method = 'sendPhoto';
+				if(preg_match("/\.mp4$/", $filename))
+				{
+					unset($params['photo']);
+					$params['video'] = $cfile;
+					$method = 'sendVideo';
+				}
+
+                                $this->request($method, $params);
+/*
+
+                                $params = array
+                                (
+                                        'chat_id' => $chat_id,
+                                        'text' => "debug: ".$filename,
+                                        'disable_web_page_preview' => null,
+                                        'reply_to_message_id' => $reply_to_message_id
+                                );
+                                $this->request('sendMessage', $params);
+*/
+
+				file_put_contents($filename, '');
+                                break;
+			}			
 
 			// txupintzako tranpie
 			case '/qarrote':
