@@ -93,10 +93,10 @@ class imgur
 	        $as = $xpath->query("//a[@class=\"image-list-link\"]");
 	        foreach($as as $a)
 	        {
-        	        $href = $a->getAttribute('href');
-			$href = preg_replace("/^\/\//", '', $href);
-			$href = "https://imgur.com{$href}";
-                       	$links[] = $href;
+				$href = $a->getAttribute('href');
+				$href = preg_replace("/^\/\//", '', $href);
+				$href = "https://imgur.com{$href}";
+				$links[] = $href;
 	        }
 		return $links;
 	}

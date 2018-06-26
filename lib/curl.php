@@ -6,8 +6,8 @@ class curl
 
 	public function __construct()
 	{
-        	if(!function_exists('curl_init'))
-        	{
+		if(!function_exists('curl_init'))
+		{
 			echo 'ERROR: Install CURL module for php';
 			exit();
 		}

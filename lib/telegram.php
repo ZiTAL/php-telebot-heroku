@@ -179,15 +179,15 @@ Ligie 38: Athletic Club - Sevilla 		2016/05/15 23:59";
 
 				$response = $tmp;
 
-                                $params = array
-                                (
-                                        'chat_id' => $chat_id,
-                                        'text' => $response,
-                                        'disable_web_page_preview' => null,
-                                        'reply_to_message_id' => $reply_to_message_id
-                                );
-                                $this->request('sendMessage', $params);
-                                break;
+				$params = array
+				(
+						'chat_id' => $chat_id,
+						'text' => $response,
+						'disable_web_page_preview' => null,
+						'reply_to_message_id' => $reply_to_message_id
+				);
+				$this->request('sendMessage', $params);
+				break;
 			}
 			case '/garrote':
 			{
@@ -197,18 +197,18 @@ Ligie 38: Athletic Club - Sevilla 		2016/05/15 23:59";
 				$imgur = new imgur('nsfw', $chat_id);
 				$filename = $imgur->getResource();
 
-                                if(class_exists('CURLFile'))
-                                        $cfile = new CURLFile($filename);
-                                else
-                                        $cfile = "@".$filename;
+				if(class_exists('CURLFile'))
+						$cfile = new CURLFile($filename);
+				else
+						$cfile = "@".$filename;
 
-                                $params = array
-                                (
-                                        'chat_id' => $chat_id,
-                                        'photo' => $cfile,
-                                        'reply_to_message_id' => $reply_to_message_id,
-                                        'reply_markup' => null
-                                );
+				$params = array
+				(
+						'chat_id' => $chat_id,
+						'photo' => $cfile,
+						'reply_to_message_id' => $reply_to_message_id,
+						'reply_markup' => null
+				);
 
 				$method = 'sendPhoto';
 				if(preg_match("/\.mp4$/", $filename))
@@ -218,21 +218,21 @@ Ligie 38: Athletic Club - Sevilla 		2016/05/15 23:59";
 					$method = 'sendVideo';
 				}
 
-                                $this->request($method, $params);
+				$this->request($method, $params);
 /*
 
-                                $params = array
-                                (
-                                        'chat_id' => $chat_id,
-                                        'text' => "debug: ".$filename,
-                                        'disable_web_page_preview' => null,
-                                        'reply_to_message_id' => $reply_to_message_id
-                                );
-                                $this->request('sendMessage', $params);
+				$params = array
+				(
+						'chat_id' => $chat_id,
+						'text' => "debug: ".$filename,
+						'disable_web_page_preview' => null,
+						'reply_to_message_id' => $reply_to_message_id
+				);
+				$this->request('sendMessage', $params);
 */
 
 				file_put_contents($filename, '');
-                                break;
+				break;
 			}
 			case '/andobuek':
 			{
@@ -297,14 +297,14 @@ Ligie 38: Athletic Club - Sevilla 		2016/05/15 23:59";
 			}
 
 			case '/getInfo':
-                                $params = array
-                                (
-                                        'chat_id' => $chat_id,
-                                        'text' => print_r($item, true),
-                                        'disable_web_page_preview' => null,
-                                        'reply_to_message_id' => $reply_to_message_id
-                                );
-                                $this->request('sendMessage', $params);
+				$params = array
+				(
+						'chat_id' => $chat_id,
+						'text' => print_r($item, true),
+						'disable_web_page_preview' => null,
+						'reply_to_message_id' => $reply_to_message_id
+				);
+				$this->request('sendMessage', $params);
 			default:
 				break;
 		}
